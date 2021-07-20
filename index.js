@@ -54,6 +54,10 @@ const sshServer = new Server(config, (client, info) => {
         ctx.reject(['publickey']);
     });
 
+    client.on('error', error => {
+        console.error(error);
+    });
+
     client.on('ready', () => {
         client.on('request', (accept, reject, name, info) => {
             if (name !== 'tcpip-forward' || info.bindPort !== 80) {
