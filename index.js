@@ -14,16 +14,10 @@ const authorizedKeys = fs
     .filter(key => key !== '')
     .map(key => parseKey(key));
 
-const config = {
-    hostKeys,
-    // banner: 'welcome to my tunnel!\n',
-};
-
 const tunnels = new Map();
 
 const checkValue = (input, allowed) => {
-    const autoReject = input.length !== allowed.length;
-    if (autoReject) {
+    if (input.length !== allowed.length) {
         // Prevent leaking length information by always making a comparison with the
         // same input when lengths don't match what we expect
         allowed = input;
@@ -32,7 +26,7 @@ const checkValue = (input, allowed) => {
     return !autoReject && isMatch;
 };
 
-const sshServer = new Server(config, (client, info) => {
+const sshServer = new Server({ hostKeys }, client => {
     client.on('authentication', ctx => {
         if (ctx.method !== 'publickey') {
             return ctx.reject();
@@ -99,7 +93,7 @@ const sshServer = new Server(config, (client, info) => {
 
             const session = accept();
 
-            session.once('exec', (accept, reject, info) => {
+            session.once('exec', (accept, _reject, info) => {
                 const stream = accept();
 
                 client.tunnel.domain = info.command;
