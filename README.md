@@ -1,5 +1,11 @@
 # SSH Tunnel
 
+## Generate host key
+
+```bash
+ssh-keygen -f ssh_host_key
+```
+
 ## NGINX Config
 
 ```nginx
