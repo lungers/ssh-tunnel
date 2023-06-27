@@ -13,7 +13,7 @@
         "type": "git",
         "url": "git+https://github.com/lungers/ssh-tunnel.git"
     },
-    "author": "Andrew Lane",
+    "author": "Avrumy",
     "license": "AGPL-3.0",
     "bugs": {
         "url": "https://github.com/lungers/ssh-tunnel/issues"
